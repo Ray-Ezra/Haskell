@@ -40,6 +40,16 @@
   (major1) == 1 && (major2) <  3 || \
   (major1) == 1 && (major2) == 3 && (minor) <= 8)
 #endif /* MIN_VERSION_directory */
+/* package threepenny-gui-0.9.4.2 */
+#ifndef VERSION_threepenny_gui
+#define VERSION_threepenny_gui "0.9.4.2"
+#endif /* VERSION_threepenny_gui */
+#ifndef MIN_VERSION_threepenny_gui
+#define MIN_VERSION_threepenny_gui(major1,major2,minor) (\
+  (major1) <  0 || \
+  (major1) == 0 && (major2) <  9 || \
+  (major1) == 0 && (major2) == 9 && (minor) <= 4)
+#endif /* MIN_VERSION_threepenny_gui */
 
 /* tool gcc-17.0.0 */
 #ifndef TOOL_VERSION_gcc
