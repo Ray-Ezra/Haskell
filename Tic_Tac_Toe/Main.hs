@@ -5,9 +5,7 @@ import System.IO (hFlush, stdout)
 main :: IO ()
 main = do
     putStrLn "Tic Tac Toe"
-    displayBoard emptyBoard
-    newBoard <- playerTurn emptyBoard 'X'
-    displayBoard newBoard
+    gameLoop emptyBoard 'X'
 
 type Board = [Char]
 
@@ -56,5 +54,47 @@ playerTurn board player = do
             putStrLn "Invalid move, try again."
             playerTurn board player
 {--
-*
+* Next, I have difined a type annotation @wininingCombos which is a list of lists of Ints.
+* Then, ive created a function @winingCombos@ where i have furthere defines a list of winning combinations for the Tic Tac Toe.
+* If there is no winner and the board is full, it returns True indicating a draw.
 --}
+winingCombos :: [[Int]]
+winingCombos = 
+    [ [0,1,2], [3,4,5], [6,7,8] 
+    , [0,3,6], [1,4,7], [2,5,8] 
+    , [0,4,8], [2,4,6]           
+    ]
+{--
+* I have defined a type signature @checkWin@  which takes a Board and returns Maybe Char this could be a 'X' or 'O' or nothing.
+* Then futhered to the function by checking all posibilities of wining combinations and if there is a winner.
+--}
+checkWin :: Board -> Maybe Char
+checkWin board =
+    case [
+        player | line <- winingCombos,
+        let [a,b,c] = map (board !!) line,
+        a /= ' ' && a == b && b == c,
+        let player = a
+        ] of
+            (p:_) -> Just p
+            []    -> Nothing
+isDraw :: Board -> Bool
+isDraw board = all (/= ' ') board && checkWin board == Nothing
+
+gameLoop :: Board -> Char -> IO ()
+gameLoop board player = do
+    case checkWin board of 
+        Just p -> putStrLn $ "Player " ++ [p] ++ " wins!"
+        Nothing -> 
+            if isDraw board 
+                then putStrLn "It's a draw!"
+                else do
+                    newBoard <- playerTurn board player
+                    displayBoard newBoard
+                    gameLoop newBoard (if player == 'X' then 'O' else 'X')
+
+
+switchPlayer :: Char -> Char
+switchPlayer 'X' = 'O'
+switchPlayer 'O' = 'X'
+switchPlayer c = c
