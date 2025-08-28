@@ -2,9 +2,19 @@ module Main where
 -- This will ensure the program waits for the user input after printing a prompt
 import System.IO (hFlush, stdout)
 
+title:: String
+title = unlines
+    [ " _______ _        _______           _______"
+    , "|__   __(_)      |__   __|         |__   __|"
+    , "   | |   _  ___     | | __ _  ___     | | ___   ___"
+    , "   | |  | |/ __|    | |/ _` |/ __|    | |/ _ \\ / _ \\"
+    , "   | |  | | (__     | | (_| | (__     | | (_) |  __/"
+    , "   |_|  |_|\\___|    |_|\\__,_|\\___|    |_|\\___/ \\___|"
+    ]
+
 main :: IO ()
 main = do
-    putStrLn "Tic Tac Toe"
+    putStrLn title
     gameLoop emptyBoard 'X'
 
 type Board = [Char]
