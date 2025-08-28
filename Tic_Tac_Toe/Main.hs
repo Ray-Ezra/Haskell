@@ -2,6 +2,10 @@ module Main where
 -- This will ensure the program waits for the user input after printing a prompt
 import System.IO (hFlush, stdout)
 
+{--
+* Here I created a var @title@ which is a string that contains the ASCII art title for the game.
+* The syntax design is from {https://patorjk.com/software/taag/}
+--}
 title:: String
 title = unlines
     [ " _______ _        _______           _______"
@@ -22,7 +26,7 @@ type Board = [Char]
 emptyBoard :: Board
 {-- 
 * Here I create a var @emptyBoard@ which is a list of 9 spaces which uses the Replicate function, representing an empty Tic Tac Toe board.
-* I moved on to create a function @displayBoard@ which takes a board as input and prints it in a 3x3 grid format.
+* I moved on to create a function @displayBoard which takes a board as input and prints it in a 3x3 grid format.
 --}
 emptyBoard = replicate 9 ' '
 displayBoard :: Board -> IO ()
